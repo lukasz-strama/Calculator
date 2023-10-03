@@ -32,7 +32,10 @@ int main() {
         // Input validation loop: ensures a valid expression is provided
         while (1) {
             stringProvider(expression);
-            if (isValidExpression(expression)) {
+            if (strcmp(expression, "exit") == 0) {
+                process = false; // Exit the program if the user enters "exit"
+                break; // Break out of the inner loop
+            } else if (isValidExpression(expression)) {
                 break;
             } else {
                 printf("Invalid expression. Please try again: ");
@@ -51,14 +54,20 @@ int main() {
 }
 
 char* stringProvider(char* expression) {
-    // Read the entire line of input, including spaces
-    fgets(expression, MAX_INPUT_LENGTH, stdin);
+    do {
+        // Read the entire line of input, including spaces
+        fgets(expression, MAX_INPUT_LENGTH, stdin);
 
-    // Remove the trailing newline character, if present
-    size_t len = strlen(expression);
-    if (len > 0 && expression[len - 1] == '\n') {
-        expression[len - 1] = '\0';
-    }
+        // Remove the trailing newline character, if present
+        size_t len = strlen(expression);
+        if (len > 0 && expression[len - 1] == '\n') {
+            expression[len - 1] = '\0';
+        }
+
+        if (strlen(expression) == 0) {
+            printf("Input cannot be empty. Please try again: ");
+        }
+    } while (strlen(expression) == 0);
 
     return expression;
 }
