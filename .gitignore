@@ -6,6 +6,9 @@
 *.dev
 *.layout
 
+# visual studio code files
+/.vscode/*.*
+
 # object files
 *.o
 *.ko
